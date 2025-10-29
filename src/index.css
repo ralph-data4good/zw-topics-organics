@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design Tokens - CSS Variables */
+:root {
+  /* Colors */
+  --primary: #2179B3;
+  --primary-light: #53A7D0;
+  --primary-dark: #14526F;
+  --secondary: #D4A73F;
+  --secondary-dark: #B8923A;
+  --green: #489E4A;
+  
+  --bg: #FFFFFF;
+  --bg-muted: #F9FAFB;
+  --fg: #111827;
+  --fg-muted: #6B7280;
+  --border: #E5E7EB;
+  
+  /* Spacing (8px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
+  
+  /* Motion - durations */
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  
+  /* Motion - easings */
+  --ease-default: ease;
+  --ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Base styles */
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-bg text-fg font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight;
+  }
+  
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Utilities for focus states */
+@layer utilities {
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+  
+  .transition-standard {
+    transition: all var(--duration-fast) var(--ease-default);
+  }
+}
+
+/* MapLibre styles */
+.maplibregl-map {
+  font-family: inherit;
+}
+
+.maplibregl-popup-content {
+  @apply rounded-lg shadow-lg p-4;
+}
+
+.maplibregl-ctrl-group button {
+  @apply focus-ring;
+}
+

@@ -1,0 +1,41 @@
+// Icon exports from lucide-react
+// Shim for @zwa/icons
+// TODO: replace with @zwa/icons when available
+
+export {
+  ArrowRight,
+  ArrowLeft,
+  ChevronLeft,
+  ChevronRight,
+  ChevronDown,
+  ChevronUp,
+  Search,
+  Filter,
+  MapPin,
+  Mail,
+  Globe,
+  ExternalLink,
+  Download,
+  Share2,
+  Bookmark,
+  Check,
+  X,
+  Menu,
+  Leaf,
+  Recycle,
+  Calculator,
+  Calendar,
+  Users,
+  Building2,
+  Factory,
+  Heart,
+  Info,
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  Map as MapIcon,
+  Grid3x3,
+  List,
+  SlidersHorizontal,
+} from 'lucide-react';
+
