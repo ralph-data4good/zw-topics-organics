@@ -197,36 +197,36 @@ export const RESOURCES: Resource[] = [
   },
 ];
 
-// Mock Campaign
+// Mock Campaign - Based on GAIA's Cities Methane Pledge
 export const METHANE_PLEDGE_CAMPAIGN: Campaign = {
   id: "methane-pledge",
   slug: "methane-pledge",
-  title: "The Methane Pledge",
-  summary: "Join cities, organizations, and individuals committed to reducing methane emissions from organic waste. Every tonne of organics diverted from landfills prevents 0.5 tonnes of CO₂-equivalent methane emissions.",
-  ctaLabel: "Take the Pledge",
-  ctaHref: "#pledge-form",
+  title: "The Cities Methane Pledge",
+  summary: "When left unmanaged, organic waste releases methane, a potent greenhouse gas that traps 82.5 times more heat than carbon dioxide. Managing organic waste is one of the simplest yet most powerful ways for cities to fight climate change. By reducing methane emissions from organic waste by 70%, cities can play a pivotal role in limiting global warming to 1.5°C.",
+  ctaLabel: "Sign the Cities Methane Pledge",
+  ctaHref: "https://www.no-burn.org/the-cities-methane-pledge/",
   stats: [
-    { label: "Pledges Taken", value: 2847 },
-    { label: "Organizations Joined", value: 142 },
-    { label: "Estimated Annual CH₄ Avoided (tCO₂e)", value: 125000 },
-    { label: "Countries Participating", value: 18 },
+    { label: "Heat Trapped vs CO₂", value: 82.5 },
+    { label: "Methane Reduction Target", value: 70 },
+    { label: "Global Warming Contribution", value: 30 },
+    { label: "Required Emissions Cut by 2030", value: 45 },
   ],
   faqs: [
     {
-      question: "What is the Methane Pledge?",
-      answer: "The Methane Pledge is a commitment by cities, organizations, and individuals to divert organic waste from landfills, reducing methane emissions. When organic waste decomposes in landfills without oxygen, it produces methane—a greenhouse gas 80+ times more potent than CO₂ over 20 years.",
+      question: "Why does methane matter?",
+      answer: "Methane is the second-largest greenhouse gas after carbon dioxide, contributing nearly 30% of global emissions. It is 82.5 times more heat-trapping than carbon dioxide over 20 years. Research shows that cutting human-caused methane emissions by 45% within this decade could prevent nearly 0.3°C of warming by 2045.",
     },
     {
-      question: "Who can take the pledge?",
-      answer: "Anyone! Individuals, households, businesses, organizations, and local governments are all welcome to take the pledge and commit to organic waste diversion through composting, anaerobic digestion, or other sustainable methods.",
+      question: "How can cities reduce methane emissions?",
+      answer: "Through Zero Waste initiatives, cities can achieve up to a 95% reduction in methane emissions from solid waste by 2030. In regions where municipal solid waste generates 20% of human-made methane emissions, organic waste comprises 50-80% of the total. This offers cities a dual opportunity to tackle domestic waste while significantly lowering methane emissions.",
     },
     {
-      question: "How is methane avoided measured?",
-      answer: "We use internationally recognized emission factors. For every tonne of organic waste diverted from landfills through composting or proper treatment, approximately 0.5 tonnes of CO₂-equivalent methane emissions are avoided. Your actual impact depends on local landfill conditions and diversion methods.",
+      question: "What does the Cities Methane Pledge commit to?",
+      answer: "Cities commit to: prioritize waste reduction throughout the supply chain; design and enforce waste segregation systems targeting 70% safe and effective recovery of organics by 2030; support infrastructure for optimal organic waste recovery through anaerobic digestion or composting; partner with farmers, businesses, and community organizations; integrate waste pickers into waste management; and encourage other local governments to join.",
     },
     {
-      question: "What happens after I take the pledge?",
-      answer: "You'll receive resources, toolkits, and updates on organic waste management best practices. You'll also be invited to share your progress and connect with others in the Zero Waste Asia community working toward the same goals.",
+      question: "Why should our city join?",
+      answer: "Cities, local governments, and countries committed to UNFCCC goals from COP21 recognize the urgent need for action. Global greenhouse gas emissions must fall by 45% by 2030 to limit warming to 1.5°C. By implementing proper waste management practices, cities can lead the charge against climate change while protecting vulnerable communities and creating green jobs.",
     },
   ],
 };

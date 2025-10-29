@@ -57,7 +57,7 @@ export function CampaignMethanePledge() {
             {METHANE_PLEDGE_CAMPAIGN.summary}
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a href={METHANE_PLEDGE_CAMPAIGN.ctaHref}>
+            <a href={METHANE_PLEDGE_CAMPAIGN.ctaHref} target="_blank" rel="noopener noreferrer">
               <Button variant="primary" size="lg">
                 <Leaf className="h-5 w-5" />
                 {METHANE_PLEDGE_CAMPAIGN.ctaLabel}
@@ -68,6 +68,9 @@ export function CampaignMethanePledge() {
               Share This Campaign
             </Button>
           </div>
+          <p className="text-xs text-fg-muted mt-4">
+            Source: <a href="https://www.no-burn.org/the-cities-methane-pledge/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GAIA - Global Alliance for Incinerator Alternatives</a>
+          </p>
         </Container>
       </div>
 
