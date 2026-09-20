@@ -36,8 +36,8 @@ export function Footer() {
               Zero Waste Asia
             </h3>
             <p className="text-sm leading-relaxed text-zwa-blue-400">
-              ZeroWaste.Asia is a website solution that centralizes zero waste knowledge,
-              resources, and tools across Asia Pacific and beyond in one platform.
+              ZeroWaste.Asia is an online platform that centralizes zero waste knowledge,
+              resources, and tools across Asia Pacific and beyond in one place.
             </p>
           </div>
 
