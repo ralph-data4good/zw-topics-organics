@@ -7,7 +7,7 @@ import re
 import shutil
 from pathlib import Path
 
-CSV_PATH = Path(r"C:\Users\Ralph\Downloads\Resources_on_Organics_Microsite_2(1).csv")
+CSV_PATH = Path(r"C:\Users\Ralph\Downloads\Resources_on_Organics_Microsite_3.csv")
 PHOTOS_SRC = Path(r"C:\Users\Ralph\Downloads\Resources on Organics - Photos")
 PROJECT = Path(r"C:\Users\Ralph\ZW.asia Organics Topic Microsite Sample")
 PHOTOS_DST = PROJECT / "public" / "resources"
@@ -65,6 +65,22 @@ def find_photo(num: str, photo_col: str) -> str | None:
     return None
 
 
+def parse_publish_date(raw: str) -> str:
+    """Normalize Publishing Date to YYYY-MM-DD (day=01 when only month given)."""
+    value = (raw or "").strip()
+    if not value:
+        return "2024-01-01"
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        return value
+    if re.fullmatch(r"\d{4}-\d{2}", value):
+        return f"{value}-01"
+    if re.fullmatch(r"\d{4}", value):
+        return f"{value}-01-01"
+    # fallback: try first 7/10 chars
+    if re.fullmatch(r"\d{4}-\d{2}.*", value):
+        return f"{value[:7]}-01"
+    return "2024-01-01"
+
 def main() -> None:
     PHOTOS_DST.mkdir(parents=True, exist_ok=True)
     for src in PHOTOS_SRC.iterdir():
@@ -85,6 +101,9 @@ def main() -> None:
             summary = desc[:200] + ("…" if len(desc) > 200 else "")
         photo = find_photo(num, r.get("Photo") or "")
         topics = parse_topics(r.get("Topic") or "")
+        publish_date = parse_publish_date(
+            r.get("Publishing Date") or r.get("Publishing date") or ""
+        )
         resources.append(
             {
                 "id": f"bulk-{num.zfill(2)}",
@@ -92,7 +111,7 @@ def main() -> None:
                 "title": title,
                 "summary": summary,
                 "topics": topics,
-                "publishDate": "2024-01-01",
+                "publishDate": publish_date,
                 "photo": photo,
                 "url": link or None,
                 "content": desc or summary,

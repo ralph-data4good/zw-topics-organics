@@ -79,9 +79,14 @@ export function Admin() {
   const [formSuccess, setFormSuccess] = useState('');
 
   const refresh = () => {
-    setResources(getAllResources());
-    setFeaturedIdsState(getFeaturedIds());
-    setMetrics(getConversionMetrics());
+    try {
+      setResources(getAllResources());
+      setFeaturedIdsState(getFeaturedIds());
+      setMetrics(getConversionMetrics());
+    } catch (err) {
+      console.error('Admin refresh failed:', err);
+      setResources([]);
+    }
   };
 
   useEffect(() => {
@@ -89,7 +94,11 @@ export function Admin() {
   }, []);
 
   useEffect(() => {
-    if (authed) refresh();
+    if (!authed) return;
+    refresh();
+    // Re-read once more after paint — avoids empty list right after login
+    const t = window.setTimeout(() => refresh(), 0);
+    return () => window.clearTimeout(t);
   }, [authed]);
 
   const total = useMemo(() => getTotalConversions(), [metrics]);
@@ -107,9 +116,10 @@ export function Admin() {
   const handleLogin = (e: FormEvent) => {
     e.preventDefault();
     if (loginAdmin(password)) {
-      setAuthed(true);
       setLoginError('');
       setPassword('');
+      setAuthed(true);
+      refresh();
     } else {
       setLoginError('Incorrect password.');
     }

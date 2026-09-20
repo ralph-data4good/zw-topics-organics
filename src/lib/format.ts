@@ -48,7 +48,33 @@ export function formatCurrency(value: number, country: string, decimals: number 
 }
 
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  const trimmed = dateString.trim();
+
+  // Month-only values from CSV (YYYY-MM) — show "February 2025"
+  if (/^\d{4}-\d{2}$/.test(trimmed)) {
+    const [year, month] = trimmed.split('-').map(Number);
+    const date = new Date(Date.UTC(year, month - 1, 1));
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    }).format(date);
+  }
+
+  // Full dates stored as YYYY-MM-01 from month-only publishing dates
+  if (/^\d{4}-\d{2}-01$/.test(trimmed)) {
+    const [year, month] = trimmed.split('-').map(Number);
+    const date = new Date(Date.UTC(year, month - 1, 1));
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      timeZone: 'UTC',
+    }).format(date);
+  }
+
+  const date = new Date(trimmed);
+  if (Number.isNaN(date.getTime())) return trimmed;
+
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',

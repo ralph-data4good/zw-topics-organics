@@ -103,13 +103,16 @@ function saveResourceOverrides(resources: Resource[]): void {
 }
 
 function defaultFeaturedIds(): string[] {
-  return getAllResources()
+  const deleted = new Set(getDeletedIds());
+  return RESOURCES.filter(r => !deleted.has(r.id))
     .slice(0, 3)
     .map(r => r.id);
 }
 
 function isKnownResourceId(id: string): boolean {
-  return getAllResources().some(r => r.id === id);
+  if (getDeletedIds().includes(id)) return false;
+  if (RESOURCES.some(r => r.id === id)) return true;
+  return getResourceOverrides().some(r => r.id === id);
 }
 
 export function getFeaturedIds(): string[] {
