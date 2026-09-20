@@ -36,6 +36,7 @@ export function CampaignMethanePledge() {
         {/* Content */}
         <Container className="relative flex h-full flex-col justify-center py-10 sm:py-16 md:py-20">
           <Breadcrumbs
+            variant="onDark"
             items={[
               { label: 'Topics', href: '/' },
               { label: 'Organics', href: '/' },

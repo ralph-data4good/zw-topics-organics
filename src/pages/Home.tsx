@@ -118,6 +118,7 @@ export function Home() {
         />
         <Container className="relative py-10 sm:py-16 md:py-24">
           <Breadcrumbs
+            variant="onDark"
             items={[
               { label: 'Topics', href: '/' },
               { label: 'Organics' },
