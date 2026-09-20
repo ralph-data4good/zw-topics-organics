@@ -10,6 +10,15 @@ export const EXTERNAL_LINKS = {
   resources: 'https://zerowaste.asia/resources?topics=organics&page=1',
   contribute: 'https://zerowaste.asia/contribute',
   helpdeskEmail: 'organicscongress@no-burn.org',
+  reuseTopic: 'https://ralph-data4good.github.io/reuse-map-prototype/reuse/',
+  gaiaWebsite: 'http://www.no-burn.org',
+  joinGaia: 'https://www.no-burn.org/join-gaia/',
+  social: {
+    facebook: 'https://www.facebook.com/GAIAAsiaPacific/',
+    instagram: 'https://www.instagram.com/zerowasteasia/',
+    youtube: 'https://youtube.com/zerowasteasia',
+    linkedin: 'https://linkedin.com/company/zerowasteasia',
+  },
   congress: {
     schedule:
       'https://docs.google.com/document/d/1QjTpkQZ7ZWmOt4Oydn7gxaabpx-q4n-DH0JbQh22KNU/edit?tab=t.0',

@@ -1,144 +1,159 @@
 // Footer component following ZWA patterns
 import { Link } from 'react-router-dom';
-import { Mail, Globe, Leaf } from '@zwa/icons';
+import {
+  Leaf,
+  Mail,
+  Globe,
+  Facebook,
+  Instagram,
+  Youtube,
+  Linkedin,
+} from '@zwa/icons';
 import { EXTERNAL_LINKS } from '@/lib/constants';
+
+const upcomingTopics = [
+  'Just Transition',
+  'Plastic Policy',
+  'Zero Waste Finance',
+] as const;
+
+const socialLinks = [
+  { label: 'Facebook', href: EXTERNAL_LINKS.social.facebook, Icon: Facebook },
+  { label: 'Instagram', href: EXTERNAL_LINKS.social.instagram, Icon: Instagram },
+  { label: 'YouTube', href: EXTERNAL_LINKS.social.youtube, Icon: Youtube },
+  { label: 'LinkedIn', href: EXTERNAL_LINKS.social.linkedin, Icon: Linkedin },
+] as const;
 
 export function Footer() {
   return (
-    <footer className="bg-header-bg text-white border-t border-zwa-blue-700 mt-16">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <footer className="mt-16 border-t border-zwa-blue-700 bg-header-bg text-white">
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* About */}
           <div>
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
+            <h3 className="mb-4 flex items-center gap-2 text-lg font-bold">
               <Leaf className="h-5 w-5 text-green-500" />
               Zero Waste Asia
             </h3>
-            <p className="text-sm text-zwa-blue-400 leading-relaxed">
-              Building a sustainable future through waste reduction, organics diversion, and circular economy solutions across Asia.
+            <p className="text-sm leading-relaxed text-zwa-blue-400">
+              ZeroWaste.Asia is a website solution that centralizes zero waste knowledge,
+              resources, and tools across Asia Pacific and beyond in one platform.
             </p>
           </div>
 
           {/* Topics */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Topics</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wide">Topics</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
+                <Link
+                  to="/"
+                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+                >
                   Organics
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
+                <a
+                  href={EXTERNAL_LINKS.reuseTopic}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+                >
                   Reuse
                 </a>
               </li>
-              <li>
-                <a href="#" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
-                  Reduction
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
-                  Policy
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Resources</h4>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  href={EXTERNAL_LINKS.directory}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
-                >
-                  Directory
-                </a>
-              </li>
-              <li>
-                <a
-                  href={EXTERNAL_LINKS.resources}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
-                >
-                  Resource Library
-                </a>
-              </li>
-              <li>
-                <a
-                  href={EXTERNAL_LINKS.calculator}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
-                >
-                  Calculator
-                </a>
-              </li>
-              <li>
-                <Link to="/helpdesk" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
-                  Help Desk
-                </Link>
-              </li>
+              {upcomingTopics.map(topic => (
+                <li key={topic}>
+                  <span
+                    className="cursor-default text-sm text-zwa-blue-400/50"
+                    aria-disabled="true"
+                  >
+                    {topic}{' '}
+                    <span className="text-xs font-medium uppercase tracking-wide">
+                      (Soon)
+                    </span>
+                  </span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Connect */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Connect</h4>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wide">Connect</h4>
             <ul className="space-y-3">
               <li>
-                <a
-                  href="mailto:info@zerowasteasia.org"
-                  className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors flex items-center gap-2"
+                <Link
+                  to="/helpdesk"
+                  className="flex items-center gap-2 text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
                 >
                   <Mail className="h-4 w-4" />
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a
-                  href="https://zerowasteasia.org"
+                  href={EXTERNAL_LINKS.gaiaWebsite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors flex items-center gap-2"
+                  className="flex items-center gap-2 text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
                 >
                   <Globe className="h-4 w-4" />
-                  Main Website
+                  GAIA Website
                 </a>
               </li>
             </ul>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-zwa-blue-700 text-zwa-blue-400 transition-colors hover:border-zwa-gold-400 hover:text-zwa-gold-400"
+                >
+                  <Icon className="h-5 w-5" />
+                </a>
+              ))}
+            </div>
+
             <div className="mt-4">
-              <Link to="/campaign/methane-pledge">
-                <button className="bg-secondary hover:bg-secondary-dark text-secondary-contrast px-4 py-2 rounded-lg text-sm font-medium transition-all">
-                  Join the Movement
-                </button>
-              </Link>
+              <a
+                href={EXTERNAL_LINKS.joinGaia}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded-lg bg-secondary px-4 py-2 text-sm font-medium text-secondary-contrast transition-all hover:bg-secondary-dark"
+              >
+                Join GAIA
+              </a>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-zwa-blue-700 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-zwa-blue-700 pt-6 md:flex-row">
           <p className="text-sm text-zwa-blue-400">
             © {new Date().getFullYear()} Zero Waste Asia. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
-              Terms of Use
-            </a>
+            <Link
+              to="/terms"
+              className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+            >
+              Terms
+            </Link>
+            <Link
+              to="/privacy"
+              className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+            >
+              Data Privacy
+            </Link>
           </div>
         </div>
       </div>
     </footer>
   );
 }
-

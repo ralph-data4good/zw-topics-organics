@@ -17,6 +17,7 @@ import { formatDate } from '@/lib/format';
 import { TOPIC_LABELS } from '@/lib/types';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { CongressSection } from '@/components/CongressSection';
+import { ScrollToActionsFab } from '@/components/ScrollToActionsFab';
 import { EXTERNAL_LINKS } from '@/lib/constants';
 import { trackConversion } from '@/lib/analytics';
 import { getFeaturedResourcesSnapshot, subscribeAdminStore } from '@/lib/admin-store';
@@ -104,6 +105,8 @@ export function Home() {
 
   return (
     <div>
+      <ScrollToActionsFab />
+
       {/* Hero Section */}
       <div className="relative overflow-hidden text-white">
         <div
@@ -165,7 +168,7 @@ export function Home() {
         <CongressSection />
 
         {/* Action Accordion */}
-        <div className="mb-10 sm:mb-12">
+        <div id="quick-actions" className="mb-10 scroll-mt-24 sm:mb-12">
           <h2 className="mb-4 text-xl font-bold text-fg sm:mb-6 sm:text-2xl md:text-3xl">Quick Actions</h2>
           <Accordion items={actionItems} defaultOpen={['search-info']} />
         </div>

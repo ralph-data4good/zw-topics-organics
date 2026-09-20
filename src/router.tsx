@@ -6,6 +6,8 @@ import { CampaignMethanePledge } from './pages/CampaignMethanePledge';
 import { ResourceDetail } from './pages/ResourceDetail';
 import { HelpDesk } from './pages/HelpDesk';
 import { Admin } from './pages/Admin';
+import { Terms } from './pages/Terms';
+import { Privacy } from './pages/Privacy';
 import { EXTERNAL_LINKS } from './lib/constants';
 import { trackConversion, type ConversionEvent } from './lib/analytics';
 
@@ -83,6 +85,14 @@ export const router = createHashRouter([
       {
         path: 'admin',
         element: <Admin />,
+      },
+      {
+        path: 'terms',
+        element: <Terms />,
+      },
+      {
+        path: 'privacy',
+        element: <Privacy />,
       },
       {
         path: '*',
