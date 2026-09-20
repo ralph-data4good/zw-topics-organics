@@ -1,10 +1,12 @@
 // Campaign page - Methane Pledge
 import { Container, Section, SectionTitle, Button, Card, CardContent, Accordion, type AccordionItemData } from '@zwa/ui';
-import { Leaf, Share2, Users } from '@zwa/icons';
+import { Leaf, Network, Users } from '@zwa/icons';
 import { usePageTitle } from '@zwa/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { METHANE_PLEDGE_CAMPAIGN } from '@/lib/data';
 import { formatNumber } from '@/lib/format';
+import { EXTERNAL_LINKS } from '@/lib/constants';
+import { trackConversion } from '@/lib/analytics';
 
 export function CampaignMethanePledge() {
   usePageTitle('The Methane Pledge');
@@ -13,32 +15,15 @@ export function CampaignMethanePledge() {
     METHANE_PLEDGE_CAMPAIGN.faqs?.map((faq, index) => ({
       id: `faq-${index}`,
       title: faq.question,
-      content: <p className="text-base leading-relaxed">{faq.answer}</p>,
+      content: <p className="text-sm leading-relaxed sm:text-base">{faq.answer}</p>,
     })) || [];
-
-  const handleShare = async () => {
-    const url = window.location.href;
-    const text = 'Join me in taking the Methane Pledge to reduce organic waste emissions!';
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: METHANE_PLEDGE_CAMPAIGN.title, text, url });
-      } catch (err) {
-        console.log('Share cancelled');
-      }
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(url);
-      alert('Link copied to clipboard!');
-    }
-  };
 
   return (
     <div>
       {/* Hero Banner with Image */}
-      <div className="relative h-[500px] md:h-[600px] overflow-hidden">
+      <div className="relative min-h-[420px] overflow-hidden sm:min-h-[500px] md:min-h-[560px]">
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2070')",
@@ -49,7 +34,7 @@ export function CampaignMethanePledge() {
         </div>
 
         {/* Content */}
-        <Container className="relative h-full flex flex-col justify-center py-16 md:py-20">
+        <Container className="relative flex h-full flex-col justify-center py-10 sm:py-16 md:py-20">
           <Breadcrumbs
             items={[
               { label: 'Topics', href: '/' },
@@ -57,33 +42,59 @@ export function CampaignMethanePledge() {
               { label: 'The Methane Pledge' },
             ]}
           />
-          <div className="mb-6 mt-8">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-20 w-20 rounded-xl bg-green-500/90 backdrop-blur-sm flex items-center justify-center flex-shrink-0 shadow-lg">
-                <Leaf className="h-10 w-10 text-white" />
+          <div className="mb-4 mt-4 sm:mb-6 sm:mt-8">
+            <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:gap-4">
+              <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-green-500/90 shadow-lg backdrop-blur-sm sm:h-20 sm:w-20">
+                <Leaf className="h-7 w-7 text-white sm:h-10 sm:w-10" />
               </div>
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
+              <h1 className="text-2xl font-extrabold leading-tight text-white drop-shadow-lg sm:text-4xl md:text-5xl lg:text-6xl">
                 {METHANE_PLEDGE_CAMPAIGN.title}
               </h1>
             </div>
           </div>
-          <p className="text-lg md:text-xl text-white leading-relaxed max-w-3xl mb-8 drop-shadow-md">
+          <p className="mb-6 max-w-3xl text-base leading-relaxed text-white drop-shadow-md sm:mb-8 sm:text-lg md:text-xl">
             {METHANE_PLEDGE_CAMPAIGN.summary}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a href={METHANE_PLEDGE_CAMPAIGN.ctaHref} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" size="lg" className="shadow-xl">
+          <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <a
+              href={METHANE_PLEDGE_CAMPAIGN.ctaHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+              onClick={() => trackConversion('methane_pledge_sign')}
+            >
+              <Button variant="primary" size="lg" className="w-full shadow-xl sm:w-auto">
                 <Leaf className="h-5 w-5" />
                 {METHANE_PLEDGE_CAMPAIGN.ctaLabel}
               </Button>
             </a>
-            <Button variant="outline" size="lg" onClick={handleShare} className="bg-white/10 backdrop-blur-sm border-white text-white hover:bg-white hover:text-fg shadow-xl">
-              <Share2 className="h-5 w-5" />
-              Share This Campaign
-            </Button>
+            <a
+              href={EXTERNAL_LINKS.citiesNetwork}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+              onClick={() => trackConversion('cities_network')}
+            >
+              <Button
+                variant="outline"
+                size="lg"
+                className="w-full border-white bg-white/10 text-white shadow-xl backdrop-blur-sm hover:bg-white hover:text-fg sm:w-auto"
+              >
+                <Network className="h-5 w-5" />
+                Explore the Cities Network
+              </Button>
+            </a>
           </div>
-          <p className="text-xs text-white/80 mt-6">
-            Source: <a href="https://www.no-burn.org/the-cities-methane-pledge/" target="_blank" rel="noopener noreferrer" className="text-zwa-gold-400 hover:underline">GAIA - Global Alliance for Incinerator Alternatives</a>
+          <p className="mt-6 text-xs text-white/80">
+            Source:{' '}
+            <a
+              href="https://www.no-burn.org/the-cities-methane-pledge/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zwa-gold-400 hover:underline"
+            >
+              GAIA - Global Alliance for Incinerator Alternatives
+            </a>
           </p>
         </Container>
       </div>
@@ -222,21 +233,37 @@ export function CampaignMethanePledge() {
         )}
 
         {/* CTA Section */}
-        <Card className="bg-gradient-to-br from-green-500/10 to-primary/5 border-green-500/30">
-          <CardContent className="p-8 md:p-10 text-center">
-            <Users className="h-16 w-16 text-green-500 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-fg mb-3">
-              Join the Community
-            </h3>
-            <p className="text-base text-fg-muted mb-6 max-w-2xl mx-auto">
+        <Card className="border-green-500/30 bg-gradient-to-br from-green-500/10 to-primary/5">
+          <CardContent className="p-5 text-center sm:p-8 md:p-10">
+            <Users className="mx-auto mb-4 h-12 w-12 text-green-500 sm:h-16 sm:w-16" />
+            <h3 className="mb-3 text-xl font-bold text-fg sm:text-2xl">Join the Community</h3>
+            <p className="mx-auto mb-6 max-w-2xl text-sm text-fg-muted sm:text-base">
               Be part of a growing movement of individuals, organizations, and cities committed to reducing methane emissions through organic waste diversion.
             </p>
-            <a href={METHANE_PLEDGE_CAMPAIGN.ctaHref}>
-              <Button variant="primary" size="lg">
-                <Leaf className="h-5 w-5" />
-                {METHANE_PLEDGE_CAMPAIGN.ctaLabel}
-              </Button>
-            </a>
+            <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+              <a
+                href={METHANE_PLEDGE_CAMPAIGN.ctaHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackConversion('methane_pledge_sign')}
+              >
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                  <Leaf className="h-5 w-5" />
+                  {METHANE_PLEDGE_CAMPAIGN.ctaLabel}
+                </Button>
+              </a>
+              <a
+                href={EXTERNAL_LINKS.citiesNetwork}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackConversion('cities_network')}
+              >
+                <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                  <Network className="h-5 w-5" />
+                  Explore the Cities Network
+                </Button>
+              </a>
+            </div>
           </CardContent>
         </Card>
       </Container>

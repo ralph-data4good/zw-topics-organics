@@ -6,9 +6,31 @@ export const Tag = z.enum([
   "reuse",
   "reduction",
   "policy",
-  "false-solutions"
+  "false-solutions",
+  "climate",
+  "waste-management",
 ]);
 export type Tag = z.infer<typeof Tag>;
+
+export const TOPIC_LABELS: Record<Tag, string> = {
+  organics: "organics",
+  reuse: "reuse",
+  reduction: "reduction",
+  policy: "policy",
+  "false-solutions": "false solutions",
+  climate: "climate",
+  "waste-management": "waste management",
+};
+
+export const ALL_TOPICS: Tag[] = [
+  "organics",
+  "reuse",
+  "reduction",
+  "policy",
+  "false-solutions",
+  "climate",
+  "waste-management",
+];
 
 // Directory Entry schema
 export const DirectoryEntry = z.object({
@@ -70,7 +92,7 @@ export const HelpDeskSubmission = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
   organization: z.string().optional(),
-  country: z.string().min(2, "Please select a country"),
+  country: z.string().min(2, "Please select a country / territory"),
   topic: Tag,
   message: z.string().min(10, "Message must be at least 10 characters"),
 });

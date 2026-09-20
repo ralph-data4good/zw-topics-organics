@@ -37,5 +37,16 @@ export {
   Grid3x3,
   List,
   SlidersHorizontal,
+  GraduationCap,
+  Video,
+  Network,
+  BarChart3,
+  Lock,
+  LogOut,
+  Star,
+  Trash2,
+  Upload,
+  Eye,
+  Pencil,
 } from 'lucide-react';
 

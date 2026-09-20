@@ -1,6 +1,7 @@
 // Footer component following ZWA patterns
 import { Link } from 'react-router-dom';
 import { Mail, Globe, Leaf } from '@zwa/icons';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 
 export function Footer() {
   return (
@@ -50,19 +51,34 @@ export function Footer() {
             <h4 className="text-sm font-semibold mb-4 uppercase tracking-wide">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/map" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
+                <a
+                  href={EXTERNAL_LINKS.directory}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+                >
                   Directory
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/resources" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
+                <a
+                  href={EXTERNAL_LINKS.resources}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+                >
                   Resource Library
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/calculator" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">
+                <a
+                  href={EXTERNAL_LINKS.calculator}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-zwa-blue-400 transition-colors hover:text-zwa-gold-400"
+                >
                   Calculator
-                </Link>
+                </a>
               </li>
               <li>
                 <Link to="/helpdesk" className="text-sm text-zwa-blue-400 hover:text-zwa-gold-400 transition-colors">

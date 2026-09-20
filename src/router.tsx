@@ -1,12 +1,33 @@
-import { createHashRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { Layout } from './Layout';
 import { Home } from './pages/Home';
-import { MapDirectory } from './pages/MapDirectory';
 import { CampaignMethanePledge } from './pages/CampaignMethanePledge';
-import { Resources } from './pages/Resources';
 import { ResourceDetail } from './pages/ResourceDetail';
 import { HelpDesk } from './pages/HelpDesk';
-import { Calculator } from './pages/Calculator';
+import { Admin } from './pages/Admin';
+import { EXTERNAL_LINKS } from './lib/constants';
+import { trackConversion, type ConversionEvent } from './lib/analytics';
+
+function ExternalRedirect({
+  href,
+  track,
+  label,
+}: {
+  href: string;
+  track?: ConversionEvent;
+  label: string;
+}) {
+  useEffect(() => {
+    if (track) trackConversion(track);
+    window.location.replace(href);
+  }, [href, track]);
+  return (
+    <div className="flex min-h-[40vh] items-center justify-center p-8 text-fg-muted">
+      Opening {label}…
+    </div>
+  );
+}
 
 export const router = createHashRouter([
   {
@@ -19,7 +40,13 @@ export const router = createHashRouter([
       },
       {
         path: 'map',
-        element: <MapDirectory />,
+        element: (
+          <ExternalRedirect
+            href={EXTERNAL_LINKS.directory}
+            track="map_explore"
+            label="directory"
+          />
+        ),
       },
       {
         path: 'campaign/methane-pledge',
@@ -27,7 +54,13 @@ export const router = createHashRouter([
       },
       {
         path: 'resources',
-        element: <Resources />,
+        element: (
+          <ExternalRedirect
+            href={EXTERNAL_LINKS.resources}
+            track="resources_browse"
+            label="resources"
+          />
+        ),
       },
       {
         path: 'resources/:slug',
@@ -39,9 +72,22 @@ export const router = createHashRouter([
       },
       {
         path: 'calculator',
-        element: <Calculator />,
+        element: (
+          <ExternalRedirect
+            href={EXTERNAL_LINKS.calculator}
+            track="calculator_open"
+            label="calculator"
+          />
+        ),
+      },
+      {
+        path: 'admin',
+        element: <Admin />,
+      },
+      {
+        path: '*',
+        element: <Navigate to="/" replace />,
       },
     ],
   },
 ]);
-

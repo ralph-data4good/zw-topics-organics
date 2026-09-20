@@ -6,7 +6,9 @@ import { usePageTitle } from '@zwa/seo';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { submitHelpDeskRequest } from '@/lib/adapters/helpdesk';
 import { HelpDeskSubmission } from '@/lib/types';
-import { getUniqueCountries } from '@/lib/adapters/directory';
+import { ASIA_PACIFIC_LOCATIONS } from '@/lib/asiaPacificLocations';
+import { trackConversion } from '@/lib/analytics';
+import { EXTERNAL_LINKS } from '@/lib/constants';
 
 export function HelpDesk() {
   usePageTitle('Help Desk');
@@ -22,7 +24,7 @@ export function HelpDesk() {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof typeof formData, string>>>({});
 
-  const countries = getUniqueCountries();
+  const locations = ASIA_PACIFIC_LOCATIONS;
 
   const handleChange = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -42,7 +44,7 @@ export function HelpDesk() {
       newErrors.email = 'Please enter a valid email address';
     }
     if (!formData.country) {
-      newErrors.country = 'Please select a country';
+      newErrors.country = 'Please select a country / territory';
     }
     if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
@@ -78,6 +80,7 @@ export function HelpDesk() {
       const result = await submitHelpDeskRequest(submission);
 
       if (result.success) {
+        trackConversion('helpdesk_submit');
         showToast({
           message: result.message,
           type: 'success',
@@ -130,7 +133,8 @@ export function HelpDesk() {
           <Section className="lg:col-span-2">
             <SectionTitle>Send Us a Message</SectionTitle>
             <SectionDescription>
-              Fill out the form below and we'll get back to you within 2-3 business days.
+              Fill out the form below and we&apos;ll get back to you within 2-3 business days.
+              Your message is saved for our organics team to follow up.
             </SectionDescription>
 
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -179,7 +183,7 @@ export function HelpDesk() {
 
               <div>
                 <Label htmlFor="country" required>
-                  Country
+                  Country / Territories
                 </Label>
                 <Select
                   id="country"
@@ -188,14 +192,14 @@ export function HelpDesk() {
                   error={!!errors.country}
                   disabled={isSubmitting}
                 >
-                  <option value="">Select a country</option>
-                  {countries.map(country => (
-                    <option key={country} value={country}>
-                      {country}
+                  <option value="">Select a country / territory</option>
+                  {locations.map(location => (
+                    <option key={location} value={location}>
+                      {location}
                     </option>
                   ))}
                 </Select>
-                {errors.country && <p className="text-xs text-red-500 mt-1">{errors.country}</p>}
+                {errors.country && <p className="mt-1 text-xs text-red-500">{errors.country}</p>}
               </div>
 
               <div>
@@ -245,8 +249,14 @@ export function HelpDesk() {
               <h3 className="text-lg font-semibold text-fg mb-3">Contact Information</h3>
               <div className="space-y-3 text-sm text-fg-muted">
                 <p>
-                  <strong className="text-fg">Email:</strong><br />
-                  organics@zerowasteasia.org
+                  <strong className="text-fg">Email:</strong>
+                  <br />
+                  <a
+                    href={`mailto:${EXTERNAL_LINKS.helpdeskEmail}`}
+                    className="text-primary hover:underline break-all"
+                  >
+                    {EXTERNAL_LINKS.helpdeskEmail}
+                  </a>
                 </p>
                 <p>
                   <strong className="text-fg">Response Time:</strong><br />
@@ -263,17 +273,32 @@ export function HelpDesk() {
               <h3 className="text-lg font-semibold text-fg mb-3">Other Resources</h3>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <a href="/resources" className="text-primary hover:underline">
+                  <a
+                    href={EXTERNAL_LINKS.resources}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
                     Resource Library
                   </a>
                 </li>
                 <li>
-                  <a href="/calculator" className="text-primary hover:underline">
+                  <a
+                    href={EXTERNAL_LINKS.calculator}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
                     Calculator Tool
                   </a>
                 </li>
                 <li>
-                  <a href="/map" className="text-primary hover:underline">
+                  <a
+                    href={EXTERNAL_LINKS.directory}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
                     Directory & Map
                   </a>
                 </li>

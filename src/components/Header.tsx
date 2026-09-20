@@ -3,56 +3,69 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from '@zwa/icons';
 import { Button } from '@zwa/ui';
+import { EXTERNAL_LINKS } from '@/lib/constants';
+import { trackConversion } from '@/lib/analytics';
+
+type NavItem =
+  | { label: string; to: string; external?: false }
+  | { label: string; href: string; external: true; track?: 'map_explore' | 'resources_browse' };
+
+const NAV_LINKS: NavItem[] = [
+  { to: '/', label: 'Home' },
+  {
+    label: 'Map & Directory',
+    href: EXTERNAL_LINKS.directory,
+    external: true,
+    track: 'map_explore',
+  },
+  {
+    label: 'Resources',
+    href: EXTERNAL_LINKS.resources,
+    external: true,
+    track: 'resources_browse',
+  },
+  { to: '/helpdesk', label: 'Help Desk' },
+];
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const linkClass =
+    'focus-ring rounded px-2 py-1 text-sm font-medium text-white transition-colors hover:text-zwa-gold-400';
+  const mobileLinkClass =
+    'focus-ring rounded px-2 py-3 font-medium text-white transition-colors hover:text-zwa-gold-400';
+
   return (
-    <header className="bg-header-bg border-b border-zwa-blue-700 sticky top-0 z-40 shadow-md">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 focus-ring rounded">
-            <div className="text-white font-bold text-lg">Zero Waste Asia</div>
-            <span className="hidden md:inline text-zwa-gold-400 text-sm">| Organics</span>
+    <header className="sticky top-0 z-40 border-b border-zwa-blue-700 bg-header-bg shadow-md">
+      <div className="mx-auto max-w-6xl px-4">
+        <div className="flex h-14 items-center justify-between sm:h-16">
+          <Link to="/" className="focus-ring flex min-w-0 items-center gap-2 rounded">
+            <div className="truncate text-base font-bold text-white sm:text-lg">Zero Waste Asia</div>
+            <span className="hidden text-sm text-zwa-gold-400 md:inline">| Organics</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <Link
-              to="/"
-              className="text-white hover:text-zwa-gold-400 transition-colors text-sm font-medium focus-ring rounded px-2 py-1"
-            >
-              Home
-            </Link>
-            <Link
-              to="/map"
-              className="text-white hover:text-zwa-gold-400 transition-colors text-sm font-medium focus-ring rounded px-2 py-1"
-            >
-              Map & Directory
-            </Link>
-            <Link
-              to="/resources"
-              className="text-white hover:text-zwa-gold-400 transition-colors text-sm font-medium focus-ring rounded px-2 py-1"
-            >
-              Resources
-            </Link>
-            <Link
-              to="/calculator"
-              className="text-white hover:text-zwa-gold-400 transition-colors text-sm font-medium focus-ring rounded px-2 py-1"
-            >
-              Calculator
-            </Link>
-            <Link
-              to="/helpdesk"
-              className="text-white hover:text-zwa-gold-400 transition-colors text-sm font-medium focus-ring rounded px-2 py-1"
-            >
-              Help Desk
-            </Link>
+          <nav className="hidden items-center gap-5 lg:flex">
+            {NAV_LINKS.map(link =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={linkClass}
+                  onClick={() => link.track && trackConversion(link.track)}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link.to} to={link.to} className={linkClass}>
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
-          {/* CTA Button (Desktop) */}
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Link to="/campaign/methane-pledge">
               <Button variant="primary" size="sm">
                 Take the Pledge
@@ -60,10 +73,9 @@ export function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-white focus-ring rounded p-2"
+            className="focus-ring rounded p-2 text-white lg:hidden"
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -71,45 +83,35 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-zwa-blue-700">
-            <nav className="flex flex-col gap-3">
-              <Link
-                to="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:text-zwa-gold-400 transition-colors font-medium py-2 focus-ring rounded"
-              >
-                Home
-              </Link>
-              <Link
-                to="/map"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:text-zwa-gold-400 transition-colors font-medium py-2 focus-ring rounded"
-              >
-                Map & Directory
-              </Link>
-              <Link
-                to="/resources"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:text-zwa-gold-400 transition-colors font-medium py-2 focus-ring rounded"
-              >
-                Resources
-              </Link>
-              <Link
-                to="/calculator"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:text-zwa-gold-400 transition-colors font-medium py-2 focus-ring rounded"
-              >
-                Calculator
-              </Link>
-              <Link
-                to="/helpdesk"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-white hover:text-zwa-gold-400 transition-colors font-medium py-2 focus-ring rounded"
-              >
-                Help Desk
-              </Link>
+          <div className="border-t border-zwa-blue-700 py-4 lg:hidden">
+            <nav className="flex flex-col gap-1">
+              {NAV_LINKS.map(link =>
+                link.external ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={mobileLinkClass}
+                    onClick={() => {
+                      link.track && trackConversion(link.track);
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={mobileLinkClass}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
               <Link
                 to="/campaign/methane-pledge"
                 onClick={() => setMobileMenuOpen(false)}
@@ -126,4 +128,3 @@ export function Header() {
     </header>
   );
 }
-

@@ -1,4 +1,5 @@
 import type { DirectoryEntry, Resource, Campaign } from "./types";
+import { BULK_RESOURCES } from "./resources-bulk";
 
 // Mock Directory Entries for Organics
 export const DIRECTORY_ENTRIES: DirectoryEntry[] = [
@@ -143,7 +144,7 @@ export const DIRECTORY_ENTRIES: DirectoryEntry[] = [
       lat: 25.0330,
       lng: 121.5654,
       city: "Taipei",
-      country: "Taiwan",
+      country: "Taiwan (China)",
     },
     summary: "Government initiative promoting closed-loop organic waste systems",
     website: "https://example.com/taipei-circular",
@@ -151,52 +152,8 @@ export const DIRECTORY_ENTRIES: DirectoryEntry[] = [
   },
 ];
 
-// Mock Resources
-export const RESOURCES: Resource[] = [
-  {
-    id: "1",
-    slug: "back-to-earth",
-    title: "Back to Earth",
-    summary: "A comprehensive guide to composting organic waste at community scale",
-    topics: ["organics"],
-    publishDate: "2024-01-15",
-    cover: "https://images.unsplash.com/photo-1572307480813-ceb0e59d8325?w=800&q=80",
-    url: "https://example.com/back-to-earth",
-    content: "Comprehensive content about composting methods, benefits, and implementation strategies...",
-  },
-  {
-    id: "2",
-    slug: "methane-matters",
-    title: "Methane Matters: The Climate Case for Organics Diversion",
-    summary: "Understanding the methane emissions from organic waste and climate impact",
-    topics: ["organics", "policy"],
-    publishDate: "2023-11-20",
-    cover: "https://images.unsplash.com/photo-1569163139394-de4798aa62b6?w=800&q=80",
-    content: "Detailed analysis of methane emissions from landfills and the climate benefits of composting...",
-  },
-  {
-    id: "3",
-    slug: "community-composting-toolkit",
-    title: "Community Composting Toolkit",
-    summary: "Step-by-step guide to starting a community composting program",
-    topics: ["organics"],
-    publishDate: "2024-02-10",
-    cover: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=800&q=80",
-    url: "https://example.com/toolkit",
-    content: "Practical toolkit with templates, checklists, and best practices...",
-  },
-  {
-    id: "4",
-    slug: "asian-organics-landscape",
-    title: "The State of Organic Waste Management in Asia",
-    summary: "Regional analysis of organics management policies and practices",
-    topics: ["organics", "policy"],
-    publishDate: "2023-09-05",
-    cover: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&q=80",
-    content: "Comprehensive regional report covering 15 countries...",
-  },
-];
-
+// Resources — bulk-imported from organics CSV + photo set
+export const RESOURCES: Resource[] = BULK_RESOURCES;
 // Mock Campaign - Based on GAIA's Cities Methane Pledge
 export const METHANE_PLEDGE_CAMPAIGN: Campaign = {
   id: "methane-pledge",

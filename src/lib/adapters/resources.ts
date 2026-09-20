@@ -1,8 +1,8 @@
-// Resources adapter - mock implementation
+// Resources adapter - merges mock data with admin-uploaded resources
 // TODO: Replace with Supabase queries when ready
 
-import { RESOURCES } from '../data';
 import type { Resource, Tag } from '../types';
+import { getAllResources } from '../admin-store';
 
 export interface ResourceFilters {
   search?: string;
@@ -10,11 +10,10 @@ export interface ResourceFilters {
 }
 
 export async function fetchResources(filters?: ResourceFilters): Promise<Resource[]> {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 300));
-  
-  let results = [...RESOURCES];
-  
+  await new Promise(resolve => setTimeout(resolve, 200));
+
+  let results = getAllResources();
+
   if (filters?.search) {
     const searchLower = filters.search.toLowerCase();
     results = results.filter(
@@ -23,21 +22,17 @@ export async function fetchResources(filters?: ResourceFilters): Promise<Resourc
         resource.summary.toLowerCase().includes(searchLower)
     );
   }
-  
+
   if (filters?.topics && filters.topics.length > 0) {
     results = results.filter(resource =>
       filters.topics!.some(topic => resource.topics.includes(topic))
     );
   }
-  
-  // Sort by publish date (newest first)
-  results.sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
-  
+
   return results;
 }
 
 export async function fetchResourceBySlug(slug: string): Promise<Resource | null> {
-  await new Promise(resolve => setTimeout(resolve, 200));
-  return RESOURCES.find(resource => resource.slug === slug) || null;
+  await new Promise(resolve => setTimeout(resolve, 150));
+  return getAllResources().find(resource => resource.slug === slug) || null;
 }
-
