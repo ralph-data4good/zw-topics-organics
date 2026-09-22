@@ -102,14 +102,14 @@ export function CongressSection() {
           </div>
         </div>
 
-        <div className="mt-5 max-w-md sm:mt-6">
+        <div className="mt-5 max-w-sm sm:mt-6 sm:max-w-md md:max-w-lg">
           <p className="mb-2 text-xs leading-relaxed text-fg-muted sm:text-sm">
             Made possible through the generous support of our partners:
           </p>
           <img
             src={PARTNERS}
             alt="Partner logos: Global Methane Hub, Sequoia Climate Foundation, um Fund, and Plastic Solutions Fund"
-            className="w-full max-w-sm rounded-md"
+            className="w-full max-w-[260px] rounded-md sm:max-w-[320px] md:max-w-[380px]"
           />
         </div>
       </div>

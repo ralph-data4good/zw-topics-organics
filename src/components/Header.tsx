@@ -40,12 +40,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-zwa-blue-700 bg-header-bg shadow-md">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="flex h-14 items-center justify-between sm:h-16">
-          <Link to="/" className="focus-ring min-w-0 shrink rounded py-1">
+        <div className="flex h-16 items-center justify-between gap-3 sm:h-[4.5rem] lg:h-20">
+          <Link to="/" className="focus-ring min-w-0 flex-1 rounded py-1 lg:flex-none">
             <img
               src={SITE_LOGO}
               alt="Zero Waste Asia | Organics"
-              className="h-8 w-auto max-w-[min(100%,220px)] object-contain object-left sm:h-10 sm:max-w-[280px]"
+              className="h-10 w-auto max-w-[min(72vw,280px)] object-contain object-left sm:h-12 sm:max-w-[340px] md:h-[3.25rem] md:max-w-[380px] lg:h-14 lg:max-w-[420px]"
             />
           </Link>
 

@@ -32,11 +32,11 @@ export function Footer() {
         <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* About */}
           <div>
-            <Link to="/" className="mb-4 inline-block">
+            <Link to="/" className="mb-4 inline-block max-w-full">
               <img
                 src={ZWA_LOGO}
                 alt="Zero Waste Asia"
-                className="h-12 w-auto sm:h-14"
+                className="h-14 w-auto max-w-full object-contain object-left sm:h-16 md:h-[4.25rem]"
               />
             </Link>
             <p className="text-sm leading-relaxed text-zwa-blue-400">
