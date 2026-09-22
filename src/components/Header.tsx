@@ -6,6 +6,8 @@ import { Button } from '@zwa/ui';
 import { EXTERNAL_LINKS } from '@/lib/constants';
 import { trackConversion } from '@/lib/analytics';
 
+const SITE_LOGO = `${import.meta.env.BASE_URL}zwa-organics-logo.png`;
+
 type NavItem =
   | { label: string; to: string; external?: false }
   | { label: string; href: string; external: true; track?: 'map_explore' | 'resources_browse' };
@@ -39,9 +41,12 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-zwa-blue-700 bg-header-bg shadow-md">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex h-14 items-center justify-between sm:h-16">
-          <Link to="/" className="focus-ring flex min-w-0 items-center gap-2 rounded">
-            <div className="truncate text-base font-bold text-white sm:text-lg">Zero Waste Asia</div>
-            <span className="hidden text-sm text-zwa-gold-400 md:inline">| Organics</span>
+          <Link to="/" className="focus-ring min-w-0 shrink rounded py-1">
+            <img
+              src={SITE_LOGO}
+              alt="Zero Waste Asia | Organics"
+              className="h-8 w-auto max-w-[min(100%,220px)] object-contain object-left sm:h-10 sm:max-w-[280px]"
+            />
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex">

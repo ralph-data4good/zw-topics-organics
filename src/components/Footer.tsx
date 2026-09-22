@@ -1,7 +1,6 @@
 // Footer component following ZWA patterns
 import { Link } from 'react-router-dom';
 import {
-  Leaf,
   Mail,
   Globe,
   Facebook,
@@ -10,6 +9,8 @@ import {
   Linkedin,
 } from '@zwa/icons';
 import { EXTERNAL_LINKS } from '@/lib/constants';
+
+const ZWA_LOGO = `${import.meta.env.BASE_URL}zwa-logo-white.png`;
 
 const upcomingTopics = [
   'Just Transition',
@@ -31,10 +32,13 @@ export function Footer() {
         <div className="mb-8 grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* About */}
           <div>
-            <h3 className="mb-4 flex items-center gap-2 text-lg font-bold">
-              <Leaf className="h-5 w-5 text-green-500" />
-              Zero Waste Asia
-            </h3>
+            <Link to="/" className="mb-4 inline-block">
+              <img
+                src={ZWA_LOGO}
+                alt="Zero Waste Asia"
+                className="h-12 w-auto sm:h-14"
+              />
+            </Link>
             <p className="text-sm leading-relaxed text-zwa-blue-400">
               ZeroWaste.Asia is an online platform that centralizes zero waste knowledge,
               resources, and tools across Asia Pacific and beyond in one place.
