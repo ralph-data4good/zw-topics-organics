@@ -24,7 +24,7 @@ export const EXTERNAL_LINKS = {
       'https://docs.google.com/document/d/1QjTpkQZ7ZWmOt4Oydn7gxaabpx-q4n-DH0JbQh22KNU/edit?tab=t.0',
     moreDetails:
       'https://www.no-burn.org/gaia-asia-pacifics-second-organics-congress-announcement/',
-    livestream: 'https://youtube.com/live/B1IDqEiZNbo?feature=share',
+    livestream: 'https://bit.ly/2ndOrganicsCongressLivestream',
   },
 } as const;
 
